@@ -13,4 +13,5 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+// Addition of +1 to correct display of the month of January in slider
+export const getMonth = (date) => MONTHS[date.getMonth() + 1];
