@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
-import { useData } from "../../contexts/DataContext";
+import {useData} from "../../contexts/DataContext";
 import Modal from "../Modal";
 import ModalEvent from "../ModalEvent";
 
@@ -10,22 +10,21 @@ import "./style.css";
 const PER_PAGE = 9;
 
 const EventList = () => {
-  const { data, error } = useData();
+  const {data, error} = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  });
+
+  // Filter events based on the selected type or return all events if no type is selected.
+  const eventsByType = type
+    ? data?.events.filter((event) => event.type === type)
+    : data?.events;
+
+  // Apply pagination filtering directly on eventsByType to ensure only events of the selected type are considered.
+  const filteredEvents = (eventsByType || []).filter(
+    (event, index) =>
+      (currentPage - 1) * PER_PAGE <= index && PER_PAGE * currentPage > index
+  );
+  // Reset currentPage to 1 whenever the event type is changed to ensure user sees the first page of the new results.
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
@@ -47,7 +46,7 @@ const EventList = () => {
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
-                {({ setIsOpened }) => (
+                {({setIsOpened}) => (
                   <EventCard
                     onClick={() => setIsOpened(true)}
                     imageSrc={event.cover}
