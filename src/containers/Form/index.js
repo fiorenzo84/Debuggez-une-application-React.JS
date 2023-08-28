@@ -39,7 +39,12 @@ const Form = ({onSuccess, onError}) => {
 
   const sendContact = useCallback(
     async (evt) => {
+      if (!evt.target.checkValidity()) {
+        return; // If the form is invalid, stop execution here
+      }
+
       evt.preventDefault();
+
       setSending(true);
       try {
         await mockContactApi();
@@ -58,6 +63,7 @@ const Form = ({onSuccess, onError}) => {
       <div className="row">
         <div className="col">
           <Field
+            required
             name="nom"
             value={formData.nom}
             onChange={handleChange}
@@ -65,6 +71,7 @@ const Form = ({onSuccess, onError}) => {
             label="Nom"
           />
           <Field
+            required
             name="prenom"
             value={formData.prenom}
             onChange={handleChange}
@@ -81,6 +88,7 @@ const Form = ({onSuccess, onError}) => {
             titleEmpty
           />
           <Field
+            required
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -93,6 +101,7 @@ const Form = ({onSuccess, onError}) => {
         </div>
         <div className="col">
           <Field
+            required
             name="message"
             value={formData.message}
             onChange={handleChange}
