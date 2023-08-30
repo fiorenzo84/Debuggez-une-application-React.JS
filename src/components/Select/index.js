@@ -15,16 +15,12 @@ const Select = ({
 }) => {
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
-
-  // This function is called when the user selects a value from the dropdown.
-  const changeValue = (e, newValue) => {
-    // Added 'newValue' as an argument to provide the new value directly.
+  const changeValue = (newValue) => {
+    // Add newValue in onChange
     onChange(newValue);
     setValue(newValue);
-    // Modified the argument to always set 'collapsed' to true, ensuring the dropdown collapses after a selection.
-    setCollapsed(true);
+    setCollapsed(newValue);
   };
-
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -36,26 +32,17 @@ const Select = ({
           {!collapsed && (
             <>
               {!titleEmpty && (
-                // Remove onClick changeValue in <li>
-                <li>
-                  <input
-                    defaultChecked={!value}
-                    name="selected"
-                    type="radio"
-                    onChange={(e) => changeValue(e, null)}
-                  />{" "}
+                <li onClick={() => changeValue(null)}>
+                  <input defaultChecked={!value} name="selected" type="radio" />{" "}
                   Toutes
                 </li>
               )}
               {selection.map((s) => (
-                // Remove onClick changeValue in <li>
-                <li key={s}>
+                <li key={s} onClick={() => changeValue(s)}>
                   <input
                     defaultChecked={value === s}
                     name="selected"
                     type="radio"
-                    // Add onChange with function changeValue in input
-                    onChange={(e) => changeValue(e, s)}
                   />{" "}
                   {s}
                 </li>

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import Select from "./index";
 
 describe("When a select is created", () => {
@@ -55,6 +55,7 @@ describe("When a select is created", () => {
             cancelable: true,
           })
         );
+
         const choice1 = screen.getByText("value1");
         fireEvent(
           choice1,
@@ -63,6 +64,9 @@ describe("When a select is created", () => {
             cancelable: true,
           })
         );
+
+        // Simulate a click on this radio button
+        fireEvent.click(choice1);
         expect(onChange.mock.calls.length).toBeGreaterThan(0);
 
         fireEvent(

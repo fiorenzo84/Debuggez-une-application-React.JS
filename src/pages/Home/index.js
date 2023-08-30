@@ -13,12 +13,7 @@ import Modal from "../../containers/Modal";
 import {useData} from "../../contexts/DataContext";
 
 const Page = () => {
-  // (const {last} = useData());
-  // Extracted data from context and derived the last event for proper data access.
-  const {data} = useData();
-  const last = data?.events?.[data.events.length - 1];
-
-  // Add id's for link in navbar
+  const {last} = useData();
   return (
     <>
       <header>
@@ -124,15 +119,15 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
-
-          {/* Render EventCard with the most recent event's details.If certain details are missing, provide fallback values. */}
-          <EventCard
-            imageSrc={last?.cover || ""}
-            title={last?.title || "à venir"}
-            date={last?.date ? new Date(last?.date) : new Date()}
-            small
-            label="boom"
-          />
+          {last && (
+            <EventCard
+              imageSrc={last?.cover}
+              title={last?.title}
+              date={new Date(last?.date)}
+              small
+              label="boom"
+            />
+          )}
         </div>
         <div className="col contact">
           <h3>Contactez-nous</h3>
