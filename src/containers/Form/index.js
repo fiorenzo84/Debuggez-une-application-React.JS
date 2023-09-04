@@ -6,7 +6,6 @@ import Button, {BUTTON_TYPES} from "../../components/Button";
 
 const mockContactApi = () =>
   new Promise((resolve) => {
-    // test time shortened from 1000 to 900 ms
     setTimeout(resolve, 900);
   });
 
@@ -20,7 +19,6 @@ const Form = ({onSuccess, onError}) => {
       try {
         await mockContactApi();
         setSending(false);
-        // call the fonction confirmation popup
         onSuccess();
       } catch (err) {
         setSending(false);

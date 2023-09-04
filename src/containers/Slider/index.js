@@ -50,12 +50,10 @@ const Slider = () => {
         <div className="SlideCard__pagination">
           {byDateDesc?.map((currentEvent, radioIdx) => (
             <input
-              // add id in Json file
               key={currentEvent.id}
               type="radio"
               name="radio-button"
               checked={index === radioIdx}
-              // Add props for slider
               readOnly
             />
           ))}
