@@ -1,4 +1,5 @@
 # 724 Events
+La mission est de Débuggez le site
 
 ## Description
 L'application est le site d'une agence evenementielle.
